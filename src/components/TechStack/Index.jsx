@@ -18,13 +18,13 @@ export const TechStack = ({ techStackImages }) => {
 
   const canvasRef = useRef(null);
   const buttonRef = useRef(null);
+  const cacheWidthRef = useRef(window.innerWidth);
 
   const [isReset, setIsReset] = useState(false);
 
   useLayoutEffect(() => {
-
     function getRandomChoice() {
-      const choices = [2,4,8, 1.5, 1.25];
+      const choices = [2, 4, 8, 1.5, 1.25];
       const randomIndex = Math.floor(Math.random() * choices.length);
       return choices[randomIndex];
     }
@@ -132,10 +132,18 @@ export const TechStack = ({ techStackImages }) => {
       buttonRef.current.addEventListener("click", handleResetCanvas);
     }
 
-    window.addEventListener("resize", handleResetCanvas);
+    const handleCacheWidth = () => {
+      const newWidth = window.innerWidth;
+      if (newWidth !== cacheWidthRef.current) {
+        cacheWidthRef.current = newWidth;
+        handleResetCanvas();
+      }
+    };
+
+    window.addEventListener("resize", handleCacheWidth);
 
     return () => {
-      window.removeEventListener("resize", handleResetCanvas);
+      window.removeEventListener("resize", handleCacheWidth);
       Engine.clear(engine);
       Render.stop(render);
       Runner.stop(runner);

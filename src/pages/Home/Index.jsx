@@ -49,7 +49,7 @@ const Home = () => {
       ".home-discover",
       {
         delay: isFromMenu ? 1 : 0,
-        duration: isFromMenu ? 0.5 : 1.5,
+        duration: isFromMenu ? 0.5 : 1,
         opacity: 1,
         ease: "power4.inOut",
       },

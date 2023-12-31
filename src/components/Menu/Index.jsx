@@ -169,7 +169,10 @@ const Menu = () => {
                   if (menuLink.path) {
                     history(menuLink.path);
                     setIsFromMenu(true);
-                    window.scrollTo(0, 0);
+                    window.scrollTo({
+                      top: 0,
+                      behavior: "instant",
+                    });
                   }
                   disableButtonMenu();
                   handleMenuBton(!isOpen);

@@ -59,7 +59,10 @@ const Project = () => {
 
   useLayoutEffect(() => {
     const handleTitleReveal = () => {
-      window.scrollTo(0, 0);
+      window.scroll({
+        top: 0,
+        behavior: "instant",
+      });
       gsap.to(".container-project--name", {
         translateY: "0",
         duration: 0.5,

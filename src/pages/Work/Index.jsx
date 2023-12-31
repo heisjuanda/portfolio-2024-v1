@@ -32,7 +32,10 @@ const Work = () => {
   };
 
   useLayoutEffect(() => {
-    window.scrollTo(0, 0);
+    window.scroll({
+      top: 0,
+      behavior: "instant",
+    });
     const handleImagesScale = () => {
       itemsRef.current = document.querySelectorAll(".item");
       for (const element of itemsRef.current) {
