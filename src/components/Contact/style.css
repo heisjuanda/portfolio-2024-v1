@@ -1,0 +1,49 @@
+.contact-me {
+  width: 100%;
+
+  opacity: 0;
+
+  text-align: center;
+
+  margin-top: 25px;
+
+  font-family: "montserrat-r";
+
+  color: white;
+
+  & header {
+    font-size: 20px;
+
+    margin-bottom: 8px;
+  }
+
+  & article {
+    display: flex;
+    justify-content: center;
+    & p {
+      width: min-content;
+
+      overflow: hidden;
+
+      position: relative;
+    }
+    & p::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        border-bottom: 1px solid white !important;
+        width: 100%;
+
+        transform: translateX(-100%);
+
+        transition: 0.2s;
+    }
+    & a {
+        color: white
+    }
+    & a:hover p::before {
+        transform: translateX(0%);
+    }
+  }
+}

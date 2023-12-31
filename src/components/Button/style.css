@@ -1,0 +1,82 @@
+.custom-button > a,
+.custom-button > p {
+  color: white;
+  transition: 0.25s;
+  font-family: "montserrat-r";
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+.custom-button:hover {
+  background-color: aliceblue;
+  border: 2px solid black;
+}
+.custom-button:hover > a,
+.custom-button:hover > p {
+  color: black;
+}
+
+.custom-button:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.custom-button:disabled:hover {
+  background-color: #292e35;
+}
+
+.custom-button:disabled > a,
+.custom-button:disabled > p {
+  color: beige;
+}
+
+.custom-button:active {
+  transform: scale(1.05);
+}
+
+.custom-button {
+  cursor: pointer;
+  position: relative;
+  padding: 10px 24px;
+  font-size: 18px;
+  color: black;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: black;
+  font-weight: 600;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-button:has(a) {
+  padding: 0;
+  & a {
+    padding: 10px 24px;
+  }
+}
+
+.custom-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: inherit;
+  scale: 0;
+  z-index: -1;
+  background-color: white;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.custom-button:hover::before {
+  scale: 3;
+}
+
+.custom-button:hover {
+  color: #212121;
+  scale: 1.1;
+}

@@ -1,25 +1,17 @@
-import { useEffect, useCallback, useContext } from "react";
+import { useLayoutEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { gsap } from "gsap";
 
 import { PortfolioContext } from "../../context/PortfolioContext";
-import { updateLoadingStatus } from "../../localStorage/localStorage";
 
-import "./ErrorPage.css";
+import "./style.css";
 
 const ErrorPage = () => {
+  const { setIsFromMenu } = useContext(PortfolioContext);
   const history = useNavigate();
 
-  const { setIsLoading } = useContext(PortfolioContext);
-
-  useEffect(() => {
-    updateLoadingStatus(false);
-    setIsLoading(false);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleGoHome = useCallback(() => {
+  const handleGoHome = () => {
     const tl = gsap.timeline();
     tl.to(".container__go-back", {
       clipPath: "circle(0% at 50% 50%)",
@@ -39,9 +31,9 @@ const ErrorPage = () => {
     setTimeout(() => {
       history("/");
     }, 2000);
-  }, [history]);
+  };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const tl = gsap.timeline();
 
     tl.from("h2 div", {
@@ -64,6 +56,9 @@ const ErrorPage = () => {
       duration: 0.2,
       ease: "circ.in",
     });
+
+    setIsFromMenu(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

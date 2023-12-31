@@ -9,10 +9,9 @@ body {
   width: 100vw;
   min-height: 100dvh;
 
-  background-color: black;
+  background-color: rgb(30, 30, 30);
 
   overflow-x: hidden;
-
   scroll-behavior: smooth;
 
   & a {

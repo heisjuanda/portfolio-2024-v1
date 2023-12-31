@@ -1,12 +1,36 @@
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import gsap from "gsap";
 
-import MENU_OPTIONS from "../../constants/menuConstants";
+import { gsap } from "gsap";
 
-import "./Menu.css";
+import { PortfolioContext } from "../../context/PortfolioContext";
+
+import HeIsJuanda from "../HeIsJuanda/Index";
+import { Contact } from "../Contact/Index";
+
+import "./style.css";
 
 const Menu = () => {
+  const { setIsFromMenu } = useContext(PortfolioContext);
+
+  const MENU_OPTIONS = [
+    {
+      id: 1,
+      name: "About",
+      path: "/",
+    },
+    {
+      id: 2,
+      name: "Work",
+      path: "/work",
+    },
+    {
+      id: 3,
+      name: "Close",
+      path: "",
+    },
+  ];
+
   const history = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -33,84 +57,92 @@ const Menu = () => {
     });
   };
 
-  const openAnimation = () => {
-    gsap.to(".menu-container", {
-      translateX: "-25%",
-      duration: 0.4,
-      ease: "power1.inOut",
+  const openAnimtionMenu = () => {
+    const tl = gsap.timeline();
+
+    tl.to(".navigation__container", {
+      translateY: "0",
+      duration: 0.5,
+      ease: "circ.inOut",
     });
-    gsap.to(".text-link__nav", {
-      opacity: "1",
-      delay: 0.3,
-      duration: 0.3,
-      ease: "power1.inOut",
+    tl.to(".menu-link", {
+      translateY: 0,
+      duration: 0.5,
+      ease: "power4.out",
+      stagger: {
+        amount: 0.1,
+      },
     });
-    gsap.to(".menu-options", {
-      display: "block",
-    });
+    tl.to(
+      ".separator-menu",
+      {
+        duration: 0.3,
+        scale: 1,
+      },
+      "<"
+    );
+    tl.to(
+      ".contact-me",
+      {
+        duration: 0.3,
+        opacity: 1,
+        delay: 0.2,
+      },
+      "<"
+    );
   };
 
-  const closeAnumation = () => {
-    gsap.to(".text-link__nav", {
-      opacity: "0",
-      delay: 0,
-      duration: 0.3,
-      ease: "power1.inOur",
+  const closeAnimationMenu = () => {
+    const tl = gsap.timeline();
+
+    tl.to(".menu-link", {
+      translateY: 100,
+      duration: 0.5,
+      ease: "power4.in",
+      stagger: {
+        amount: 0.1,
+      },
     });
-    gsap.to(".menu-options", {
-      display: "none",
-      delay: 0.2,
+    tl.to(".navigation__container", {
+      translateY: "-100%",
+      duration: 0.5,
+      ease: "circ.inOut",
     });
-    gsap.to(".menu-container", {
-      translateX: "50%",
-      duration: 0.4,
-      ease: "power1.inOut",
-    });
-    gsap.to(".menu-container", {
-      translateX: "-100%",
-      delay: 0.4,
-      duration: 0,
-    });
+    tl.to(
+      ".separator-menu",
+      {
+        duration: 0.3,
+        scale: 0,
+      },
+      "+=-1"
+    );
+    tl.to(
+      ".contact-me",
+      {
+        duration: 0.3,
+        opacity: 0,
+      },
+      "+=-1"
+    );
   };
 
-  const handleMenu = () => {
+  const disableButtonMenu = () => {
     setIsDisabledBtn(true);
     setTimeout(() => {
       setIsDisabledBtn(false);
-    }, 400);
+    }, 1000);
+  };
+
+  const handleMenu = () => {
+    disableButtonMenu();
 
     if (!isOpen) {
-      openAnimation();
+      openAnimtionMenu();
     } else {
-      closeAnumation();
+      closeAnimationMenu();
     }
     handleMenuBton(!isOpen);
     setIsOpen(!isOpen);
-  };
-
-  const handleCloseMenu = () => {
-    gsap.to(".text-link__nav", {
-      delay: 0,
-      opacity: "0",
-      duration: 0.3,
-    });
-    gsap.to(".menu-options", {
-      display: "none",
-      delay: 0,
-      duration: 0.3,
-    });
-    gsap.to(".menu-container", {
-      translateX: "50%",
-      duration: 0.4,
-      ease: "power1.inOut",
-    });
-    handleMenuBton(!isOpen);
-    setIsOpen((prevIsOpen) => !prevIsOpen);
-    gsap.to(".menu-container", {
-      translateX: "-100%",
-      delay: 0.4,
-      duration: 0
-    });
   };
 
   return (
@@ -118,7 +150,7 @@ const Menu = () => {
       <button
         role="button"
         title="burger-menu"
-        className="burger-btn interactable"
+        className="burger-btn"
         onClick={handleMenu}
         disabled={isDisabledBtn}
       >
@@ -126,43 +158,33 @@ const Menu = () => {
         <span id="burger-btn__two"></span>
         <span id="burger-btn__three"></span>
       </button>
-      <div className="menu-container"></div>
-      <div className="menu-options">
-        <nav className="menu-options__nav">
-          <ol>
-            {Array.isArray(MENU_OPTIONS) &&
-              MENU_OPTIONS.map((option) => (
-                <li key={option.path}>
-                  <p className="text-link__nav">
-                    <span
-                      className="interactable"
-                      data-type="menu-option"
-                      onClick={() => {
-                        history(option.path);
-                        handleCloseMenu();
-                      }}
-                    >
-                      {option.name}
-                    </span>
-                  </p>
-                </li>
-              ))}
-            <li>
-              <p className="text-link__nav" id="text-close__nav">
-                <span
-                  className="interactable"
-                  data-type="menu-option"
-                  onClick={() => {
-                    handleCloseMenu();
-                  }}
-                >
-                  Close
-                </span>
-              </p>
+      <nav className="navigation-portfolio">
+        <HeIsJuanda />
+        <ol className="navigation__container">
+          {MENU_OPTIONS.map((menuLink) => (
+            <li key={menuLink.id}>
+              <h2
+                onClick={() => {
+                  closeAnimationMenu();
+                  if (menuLink.path) {
+                    history(menuLink.path);
+                    setIsFromMenu(true);
+                    window.scrollTo(0, 0);
+                  }
+                  disableButtonMenu();
+                  handleMenuBton(!isOpen);
+                  setIsOpen(!isOpen);
+                }}
+                className="menu-link"
+              >
+                {menuLink.name}
+              </h2>
             </li>
-          </ol>
-        </nav>
-      </div>
+          ))}
+          <div className="separator-menu"></div>
+          <Contact />
+        </ol>
+      </nav>
     </>
   );
 };

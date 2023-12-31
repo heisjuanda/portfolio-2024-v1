@@ -1,7 +1,16 @@
 /* eslint-disable react/prop-types */
-import "./Button.css";
+import "./style.css";
 
-const Button = ({ text, link, click, style, type, disabled, child }) => {
+const Button = ({
+  text,
+  link,
+  isDownload,
+  click,
+  style,
+  type,
+  disabled,
+  child,
+}) => {
   return (
     <button
       onClick={click}
@@ -10,7 +19,7 @@ const Button = ({ text, link, click, style, type, disabled, child }) => {
       disabled={disabled}
     >
       {link ? (
-        <a href={link}>
+        <a href={link} target="_blank" download={isDownload} rel="noreferrer">
           <p>{text}</p>
         </a>
       ) : (
@@ -23,4 +32,4 @@ const Button = ({ text, link, click, style, type, disabled, child }) => {
   );
 };
 
-export default Button
+export default Button;

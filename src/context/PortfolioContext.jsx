@@ -1,34 +1,17 @@
 /* eslint-disable react/prop-types */
 import { createContext, useMemo, useState } from "react";
 
-import { getLoading } from "../localStorage/localStorage";
-
 export const PortfolioContext = createContext();
 
 const PortfolioProvider = ({ children }) => {
-  const [showNotification, setShowNotification] = useState(false);
-  const [notificationContent, setNotificationContent] = useState({});
-  const [isLoading, setIsLoading] = useState(getLoading());
-
-  window.scrollTo(0, 0);
+  const [isFromMenu, setIsFromMenu] = useState(false);
 
   const values = useMemo(
     () => ({
-      showNotification,
-      setShowNotification,
-      notificationContent,
-      setNotificationContent,
-      isLoading,
-      setIsLoading
+      isFromMenu,
+      setIsFromMenu,
     }),
-    [
-      showNotification,
-      setShowNotification,
-      notificationContent,
-      setNotificationContent,
-      isLoading,
-      setIsLoading
-    ]
+    [isFromMenu, setIsFromMenu]
   );
 
   return (

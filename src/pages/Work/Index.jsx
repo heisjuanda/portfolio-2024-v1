@@ -1,19 +1,12 @@
-import { useEffect, useRef, useContext } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
-
-import { PortfolioContext } from "../../context/PortfolioContext";
-
-import CurrentSection from "../../components/CurrentSection/Index";
-
-import { updateLoadingStatus } from "../../localStorage/localStorage";
 
 import { WORK_PROJECTS } from "../../constants/workConstants";
 
 import "./Work.css";
 
 const Work = () => {
-  const { setIsLoading } = useContext(PortfolioContext);
   const itemsRef = useRef([]);
 
   const history = useNavigate();
@@ -32,17 +25,14 @@ const Work = () => {
       scale: "0",
       ease: "power2.inOut",
     });
-    
+
     setTimeout(() => {
       history(`/work/${project.handle}`);
     }, 1001);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     window.scrollTo(0, 0);
-    updateLoadingStatus(false);
-    setIsLoading(false);
-
     const handleImagesScale = () => {
       itemsRef.current = document.querySelectorAll(".item");
       for (const element of itemsRef.current) {
@@ -77,15 +67,12 @@ const Work = () => {
     return () => {
       window.removeEventListener("scroll", setScale);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <main className="work-section">
       <section className="work-section__container">
-        <header>
-          <CurrentSection />
-        </header>
         {WORK_PROJECTS.length > 0 &&
           WORK_PROJECTS.map((project) => (
             <div key={project.key} className="item">

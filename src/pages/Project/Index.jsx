@@ -1,17 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import gsap from "gsap";
 
-import { PortfolioContext } from "../../context/PortfolioContext";
-
-import CurrentSection from "../../components/CurrentSection/Index";
 import Button from "../../components/Button/Index";
 
 import { TechStack } from "../../components/TechStack/Index";
 
-import { updateLoadingStatus } from "../../localStorage/localStorage";
 import {
   getNextProject,
   getPreviousProject,
@@ -21,11 +17,9 @@ import useProject from "../../hooks/useProject";
 
 import checked from "/icons/checkProject.png";
 
-import "./Project.css";
+import "./style.css";
 
 const Project = () => {
-  const { setIsLoading } = useContext(PortfolioContext);
-
   const [isDisabled, setIsDisabled] = useState(false);
 
   const { handle } = useParams();
@@ -63,13 +57,7 @@ const Project = () => {
     }, 1001)
   };
 
-  useEffect(() => {
-    setIsLoading(false);
-    updateLoadingStatus(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handleTitleReveal = () => {
       window.scrollTo(0, 0);
       gsap.to(".container-project--name", {
@@ -96,7 +84,6 @@ const Project = () => {
 
   return (
     <main className="project-section">
-      <CurrentSection />
       <section className="project-section__container">
         <header>
           {currentProject?.name && (

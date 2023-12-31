@@ -1,33 +1,19 @@
-import { lazy, Suspense, useContext } from "react";
+import { lazy, Suspense } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
-import { PortfolioContext } from "../context/PortfolioContext";
-
 import Menu from "../components/Menu/Index";
+import Footer from "../components/Footer/Index";
 import Loader from "../components/Loader/Index";
-import { Notification } from "../components/Notification/Index";
 import Home from "../pages/Home/Index";
+import Work from "../pages/Work/Index";
 
 const ErrorPage = lazy(() => import("../pages/ErrorPage/Index"));
-const About = lazy(() => import("../pages/About/Index"));
-const Work = lazy(() => import("../pages/Work/Index"));
 const Project = lazy(() => import("../pages/Project/Index"));
-const Talk = lazy(() => import("../pages/Talk/Index"));
 
 export const RoutesConfiguration = () => {
-  const { showNotification, notificationContent } =
-    useContext(PortfolioContext);
-
   return (
     <Router>
       <Menu />
-      {showNotification && (
-        <Notification
-          title={notificationContent.title}
-          message={notificationContent.message}
-          isError={notificationContent.isError}
-        />
-      )}
       <Routes>
         <Route
           path="*"
@@ -38,22 +24,7 @@ export const RoutesConfiguration = () => {
           }
         />
         <Route path="/" element={<Home />} />
-        <Route
-          path="/about"
-          element={
-            <Suspense fallback={<Loader fullScreen />}>
-              <About />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/work"
-          element={
-            <Suspense fallback={<Loader fullScreen />}>
-              <Work />
-            </Suspense>
-          }
-        />
+        <Route path="/work" element={<Work />} />
         <Route
           path="/work/:handle"
           element={
@@ -62,15 +33,8 @@ export const RoutesConfiguration = () => {
             </Suspense>
           }
         />
-        <Route
-          path="/contact"
-          element={
-            <Suspense fallback={<Loader fullScreen />}>
-              <Talk />
-            </Suspense>
-          }
-        />
       </Routes>
+      <Footer />
     </Router>
   );
 };

@@ -1,0 +1,132 @@
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.home-section {
+  width: 100%;
+  padding: 0 10% 0 10%;
+  min-height: 100dvh;
+
+  margin-top: 90px !important;
+
+  & > section {
+    margin-bottom: 50px;
+  }
+  & section:first-child {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 50dvh;
+
+    color: white;
+    & header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      font-size: clamp(20px, 6vw, 60px);
+      font-family: "montserrat-b";
+
+      & h1 {
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        text-align: center;
+        & img {
+          opacity: 0;
+
+          border-radius: 50%;
+          max-width: 80px;
+          width: 8vw;
+          min-width: 40px;
+          animation: rotate 20s linear infinite;
+        }
+        & span {
+          display: inline-block;
+          transform: translateY(100%);
+        }
+      }
+    }
+  }
+  & section:nth-child(2) {
+    & article {
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+      & img {
+        width: 25vw;
+        min-width: 250px;
+      }
+    }
+  }
+
+  & section:nth-child(3) {
+    & header {
+      font-size: clamp(25px, 4vw, 40px);
+      font-family: "montserrat-b";
+      color: white;
+    }
+    & article {
+      & li {
+        margin: 20px 0 20px 0;
+
+        color: white;
+        & h3 {
+          font-size: 25px;
+          font-family: "montserrat-b";
+          margin-bottom: 8px;
+        }
+        & h6 {
+          margin-bottom: 5px;
+          font-size: 14px;
+          font-family: "montserrat-r";
+        }
+        & p {
+          font-size: 14px;
+          opacity: 0.8;
+          font-family: "montserrat-l";
+        }
+      }
+      & li::after {
+        display: flex;
+        content: "";
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        margin-top: 15px;
+      }
+    }
+  }
+  & section:nth-child(4) {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    & button {
+      font-size: 16px !important;
+    }
+  }
+
+  & .work--transition {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    z-index: 100;
+    width: 100%;
+    height: 100dvh;
+
+    background-color: rgb(30, 30, 30);
+
+    transform: translateY(100%);
+  }
+}
