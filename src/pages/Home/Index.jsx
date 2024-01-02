@@ -93,7 +93,11 @@ const Home = () => {
           data-aos-easing="linear"
           data-aos-duration="1000"
         >
-          <img src={pic} alt="monkey well-dressed asking for a job" />
+          <img
+            src={pic}
+            loading="eager"
+            alt="Juan David Moreno Alfonso very handsome and ready to code!"
+          />
         </article>
       </section>
 
