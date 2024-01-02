@@ -1,3 +1,21 @@
+@keyframes movementArrowWhite {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-40px);
+  }
+}
+
+@keyframes movementArrowBlack {
+  from {
+    transform: translateY(40px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
+
 .project-section {
   width: 100vw;
   min-height: 100dvh;
@@ -7,7 +25,6 @@
   background-color: rgb(30, 30, 30);
 
   position: relative;
-
   & .disappear {
     opacity: 0;
     will-change: opacity;
@@ -69,10 +86,9 @@
     }
     & article {
       & .project-description {
-        width: 40%;
+        width: 80%;
         min-width: 250px;
-
-        margin: 5% 0 0 50%;
+        margin: 5% 0 0 10%;
         & p {
           color: white;
           font-size: 14px;
@@ -125,11 +141,25 @@
         text-transform: uppercase;
 
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: center;
         align-items: center;
-        gap: 10px;
+        flex-wrap: wrap;
+        gap: 25px;
 
         margin-top: 40px;
+
+        width: 80%;
+
+        margin-inline: auto;
+
+        & li {
+          list-style: outside;
+          &::marker {
+            margin: 0;
+            padding: 0;
+          }
+        }
       }
     }
     & .project-demo {
@@ -144,8 +174,74 @@
         width: 80vw;
         min-width: 270px;
         max-width: 1000px;
+      }
+      & img {
+        width: 100%;
+      }
+    }
+    & article:last-child {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+
+      width: 250px;
+      height: 40px;
+
+      margin-inline: auto;
+      & h6 {
+        font-size: 16px;
+        color: white;
+        font-family: "montserrat-r";
+
+        margin-bottom: 20px;
+      }
+      & a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        height: 100%;
+      }
+      & .go--up {
+        border: 2px solid black;
+        background-color: black;
+        border-radius: 50%;
+
+        height: 40px;
+        width: 40px;
+
+        cursor: pointer;
+
+        transition: 0.25s;
+
+        overflow: hidden;
+
+        margin-bottom: 20px;
+
         & img {
-          width: 100%;
+          position: absolute;
+
+          width: 20px;
+
+          transform: translateY(0px);
+        }
+        & img:last-child {
+          transform: translateY(40px);
+        }
+      }
+      & .go--up:hover {
+        border: 2px solid white;
+        background-color: white;
+        scale: 1.1;
+
+        & img:first-child {
+          animation: movementArrowWhite 0.25s ease forwards;
+        }
+        & img:last-child {
+          animation: movementArrowBlack 0.25s ease forwards;
         }
       }
     }
@@ -166,7 +262,7 @@
     }
     & article {
       & .project-description {
-        width: 60% !important;
+        width: 80% !important;
 
         margin: 5% 0 0 10% !important;
         & p {
@@ -175,6 +271,12 @@
         }
       }
     }
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .project-navigation--control {
+    justify-content: space-between !important;
   }
 }
 

@@ -16,6 +16,8 @@ import {
 import useProject from "../../hooks/useProject";
 
 import checked from "/icons/checkProject.png";
+import arrowB from "/icons/arrow-b.png";
+import arrowW from "/icons/arrow-w.png";
 
 import "./style.css";
 
@@ -54,7 +56,7 @@ const Project = () => {
     }, 501);
     setTimeout(() => {
       setIsDisabled(false);
-    }, 1001)
+    }, 1001);
   };
 
   useLayoutEffect(() => {
@@ -63,6 +65,7 @@ const Project = () => {
         top: 0,
         behavior: "instant",
       });
+
       gsap.to(".container-project--name", {
         translateY: "0",
         duration: 0.5,
@@ -87,7 +90,8 @@ const Project = () => {
 
   return (
     <main className="project-section">
-      <section className="project-section__container">
+      <section className="project-section__container" id="top"
+      >
         <header>
           {currentProject?.name && (
             <h1>
@@ -114,7 +118,7 @@ const Project = () => {
                   })}
               </span>
             </h4>
-          )} 
+          )}
         </header>
         <article className="disappear">
           {currentProject?.description && (
@@ -128,24 +132,24 @@ const Project = () => {
             click={() => {
               handleNextHandle(true);
             }}
-            text="Next"
+            text="following"
             disabled={isDisabled}
           />
           <Button
             click={() => {
               handleNextHandle(false);
             }}
-            text="Back"
+            text="Previous"
             disabled={isDisabled}
           />
         </article>
         <article className="project-demo disappear">
           {currentProject?.demo && (
             <div>
-              <LazyLoadImage
+              <img
                 src={currentProject.demo}
                 alt={`${currentProject.name}'s demo`}
-                effect="blur"
+                loading="eager"
               />
             </div>
           )}
@@ -187,6 +191,15 @@ const Project = () => {
                 ))}
             </ul>
           )}
+        </article>
+        <article>
+          <h6>Need help to go up?</h6>
+          <div className="go--up">
+            <a href="#top">
+              <img src={arrowW} alt="" />
+              <img src={arrowB} alt="" />
+            </a>
+          </div>
         </article>
       </section>
     </main>
